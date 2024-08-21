@@ -1,0 +1,27 @@
+name: Build and Present
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-present:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Cài đặt công cụ chuyển đổi
+      run: |
+        sudo apt-get install pandoc
+
+    - name: Chuyển đổi Markdown thành HTML
+      run: |
+        pandoc -s README.md -o index.html
+    
+    - name: Deploy lên GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
