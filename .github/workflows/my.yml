@@ -1,0 +1,27 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Thiết lập Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Cài đặt các package
+      run: npm install
+
+    - name: Chạy lệnh test
+      run: npm test
